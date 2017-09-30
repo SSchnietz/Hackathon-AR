@@ -53,8 +53,7 @@ module.exports = {
         modules: [path.resolve(__dirname, "src"), "node_modules"],
         alias: {
             three:three,
-            'ar.js':arjs,
-            'WebAR':webar
+            'ar.js':arjs
         }
     }
 }

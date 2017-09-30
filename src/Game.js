@@ -9,7 +9,8 @@ class Game {
     constructor() {     
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
 
-        this.renderer = new THREE.WebGLRenderer();
+        this.renderer = new THREE.WebGLRenderer({antialias: true,
+            alpha: true});
         this.renderer.setSize(window.innerWidth, window.innerHeight, true);
         document.body.appendChild(this.renderer.domElement);
 
@@ -60,7 +61,7 @@ class Game {
         });
 
         this.arToolkitContext = new THREEx.ArToolkitContext({
-            cameraParametersUrl: THREEx.ArToolkitContext.baseURL + '../data/data/camera_para.dat',
+            cameraParametersUrl: 'assets/camera_para.dat',
             detectionMode: 'mono',
         });
 
@@ -72,7 +73,7 @@ class Game {
 
         this.markerControls = new THREEx.ArMarkerControls(this.arToolkitContext, this.camera, {
             type : 'pattern',
-            patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.hiro',
+            patternUrl : 'assets/patt.hiro',
             // patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.kanji',
             // as we controls the camera, set changeMatrixMode: 'cameraTransformMatrix'
             changeMatrixMode: 'cameraTransformMatrix'
