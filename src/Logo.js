@@ -7,8 +7,9 @@ export default class extends THREE.Object3D {
         
         loader.load('Hackathon').then((mesh) => this.add(mesh));
 
-        this.rotationAxis = new THREE.Vector3(Math.random()-0.5, Math.random()-0.5, Math.random()-0.5).normalize();
-        this.rotationSpeed = Math.random() * 0.4;
+        this.rotationAxis = new THREE.Vector3(1,2,3).normalize();
+        this.rotationSpeed = 1;
+        this.scale.set(0.2,0.2,0.2);
 
         this.isDestroyed = false;
     }

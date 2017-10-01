@@ -23,10 +23,10 @@ class Game {
 
     createScene() {
         this.scene = new THREE.Scene();  
-        this.renderer.setClearColor(new THREE.Color(0,0,0),1); 
+        //this.renderer.setClearColor(new THREE.Color(0,0,0),1); 
 
-        this.camera.position.set(0,10,20);
-        this.camera.lookAt(new THREE.Vector3(0,0,0));
+        //this.camera.position.set(0,10,20);
+        //this.camera.lookAt(new THREE.Vector3(0,0,0));
 
         let light = new THREE.DirectionalLight(0xffffff,1);
         light.position.set(0.25,1,0.75);
@@ -40,6 +40,7 @@ class Game {
         this.scene.add(light2);
 
         this.logo = new Logo(this.modelLoader);
+        this.logo.position.set(0,0,-10);
         this.scene.add(this.logo);
         
         console.log( THREEx );
@@ -47,13 +48,7 @@ class Game {
         this.arToolkitSource = new THREEx.ArToolkitSource({
             // to read from the webcam 
             sourceType : 'webcam',
-            
-            // // to read from an image
-            // sourceType : 'image',
-            // sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/images/img.jpg',		
-            // to read from a video
-            // sourceType : 'video',
-            // sourceUrl : THREEx.ArToolkitContext.baseURL + '../data/videos/headtracking.mp4',		
+            	
         })
 
         this.arToolkitSource.init(() => {
@@ -74,8 +69,6 @@ class Game {
         this.markerControls = new THREEx.ArMarkerControls(this.arToolkitContext, this.camera, {
             type : 'pattern',
             patternUrl : 'assets/patt.hiro',
-            // patternUrl : THREEx.ArToolkitContext.baseURL + '../data/data/patt.kanji',
-            // as we controls the camera, set changeMatrixMode: 'cameraTransformMatrix'
             changeMatrixMode: 'cameraTransformMatrix'
         })
         // as we do changeMatrixMode: 'cameraTransformMatrix', start with invisible scene
@@ -89,10 +82,10 @@ class Game {
 
         this.logo.update(deltaSeconds);
         
-		if( this.arToolkitSource.ready === true ){
+		if( this.arToolkitSource.ready !== false ){
             this.arToolkitContext.update( this.arToolkitSource.domElement )
             
-            this.scene.visible = this.camera.visible
+            this.scene.visible = this.camera.visible;
         }
 
         this.renderer.render(this.scene, this.camera);
