@@ -7,7 +7,7 @@ import * as THREEx from 'ar.js';
 class Game {
 
     constructor() {     
-        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+        this.camera = new THREE.Camera(); //(75, window.innerWidth / window.innerHeight, 0.1, 10000);
 
         this.renderer = new THREE.WebGLRenderer({antialias: true,
             alpha: true});
@@ -23,6 +23,7 @@ class Game {
 
     createScene() {
         this.scene = new THREE.Scene();  
+        this.scene.add(this.camera);
         //this.renderer.setClearColor(new THREE.Color(0,0,0),1); 
 
         //this.camera.position.set(0,10,20);
@@ -40,7 +41,7 @@ class Game {
         this.scene.add(light2);
 
         this.logo = new Logo(this.modelLoader);
-        this.logo.position.set(0,0,-10);
+        this.logo.position.set(0,0,0);
         this.scene.add(this.logo);
         
         console.log( THREEx );
@@ -83,7 +84,7 @@ class Game {
         this.logo.update(deltaSeconds);
         
 		if( this.arToolkitSource.ready !== false ){
-            this.arToolkitContext.update( this.arToolkitSource.domElement )
+            this.arToolkitContext.update( this.arToolkitSource.domElement );
             
             this.scene.visible = this.camera.visible;
         }
@@ -92,9 +93,9 @@ class Game {
     }
 
     resize() {
-        this.camera.aspect = window.innerWidth / window.innerHeight;
-        this.camera.updateProjectionMatrix();
-        this.renderer.setSize(window.innerWidth, window.innerHeight, true);
+        //this.camera.aspect = window.innerWidth / window.innerHeight;
+        //this.camera.updateProjectionMatrix();
+        //this.renderer.setSize(window.innerWidth, window.innerHeight, true);
 
         this.arToolkitSource.onResize()	
 		this.arToolkitSource.copySizeTo(this.renderer.domElement)	
